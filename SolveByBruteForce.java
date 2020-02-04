@@ -2,21 +2,40 @@ import java.util.Arrays;
 
 public class SolveByBruteForce {
 
+    // Dimensions of the board
     static int num_rows = 5;
     static int num_cols = 6;
+    static int num_cells = num_rows * num_cols;
+
+    // There are 2 unique solutions
+    static int num_solutions = 2;
 
     public static void main(String[] args) {
-
-        System.out.println(Arrays.deepToString(bruteForce()));
-
+        printBoard(bruteForce());
     }
 
-    public static int[][][] bruteForce() {
+    // Utility function to print the solutions
+    static void printBoard(int[][][] board) {
+        for (int i = 0; i < num_solutions; i++) {
+            for (int j = 0; j < num_rows; j++) {
+                for (int k = 0; k < num_cols; k++) {
+                    System.out.printf(" %d ", board[i][j][k]);
+                }
+                System.out.printf("\n");
+            }
+            System.out.printf("\n");
+        }
+        System.out.printf("\n");
+    }
+
+    static int[][][] bruteForce() {
+        // Cells are either filled or empty
         int[] val = {0, 1};
+
         int[] array = new int[0];
-        // there are 2 unique solutions
-        int[][] array_2d = new int[2][30];
-        int[][][] sol = new int[2][5][6];
+        int[][] array_2d = new int[num_solutions][num_cells];
+        int[][][] sol = new int[num_solutions][num_rows][num_cols];
+
         int i = 0;
         int k = 0;
         for (int one : val) {
@@ -96,7 +115,7 @@ public class SolveByBruteForce {
                                                                                                                                     twelve + thirteen + fourteen + fifteen + sixteen + seventeen + eighteen +
                                                                                                                                     nineteen + twenty + twentyone + twentytwo + twentythree + twentyfour + twentyfive +
                                                                                                                                     twentysix + twentyseven + twentyeight + twentynine + thirty == 22)) {
-                                                                                                                                    for (int j = 0; j < 30; j++) {
+                                                                                                                                    for (int j = 0; j < num_cells; j++) {
                                                                                                                                         array_2d[i][j] = array[j];
                                                                                                                                     }
                                                                                                                                     i++;

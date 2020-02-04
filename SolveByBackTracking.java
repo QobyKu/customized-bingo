@@ -1,10 +1,10 @@
 public class SolveByBackTracking {
 
     // Dimensions of Bingo board
-    static int numRows = 5;
-    static int numCols = 6;
+    static int num_rows = 5;
+    static int num_cols = 6;
     // Keeps track of number of solutions
-    static int solCounter = 1;
+    static int sol_counter = 1;
 
     // Driver code
     public static void main(String[] args) {
@@ -16,7 +16,7 @@ public class SolveByBackTracking {
      * solvePuzzleUtil() to solve the problem.
      */
     static void solvePuzzle() {
-        int[][] board = new int[numRows][numCols];
+        int[][] board = new int[num_rows][num_cols];
 
         if (!solvePuzzleUtil(board, 0, 0)) {
             System.out.print("Solution does not exist");
@@ -29,7 +29,7 @@ public class SolveByBackTracking {
     static boolean solvePuzzleUtil(int[][] board, int row, int col) {
 
         /* base case: If we have reached end of the board */
-        if (col == numCols) {
+        if (col == num_cols) {
             printSolution(board);
             return true;
         }
@@ -41,18 +41,18 @@ public class SolveByBackTracking {
         /*
          * Check if 1 can be placed on board[row][col]
          */
-        while (row < numRows) {
+        while (row < num_rows) {
             if (isSafe(board, row, col)) {
                 /* Place a 1 in board[i][col] */
                 board[row][col] = 1;
 
                 // Make result true if any placement is possible
                 // Try the next row if we haven't reached the bottom
-                if (row < numRows - 1) {
+                if (row < num_rows - 1) {
                     res = solvePuzzleUtil(board, row + 1, col) || res;
                 }
                 // Try the next column if we have reached the bottom
-                if (row == numRows - 1) {
+                if (row == num_rows - 1) {
                     res = solvePuzzleUtil(board, 0, col + 1) || res;
                 }
 
@@ -64,7 +64,7 @@ public class SolveByBackTracking {
             }
 
             // Move to the next column
-            if (row == numRows - 1) {
+            if (row == num_rows - 1) {
                 res = solvePuzzleUtil(board, 0, col + 1) || res;
             }
 
@@ -764,17 +764,17 @@ public class SolveByBackTracking {
     static void printSolution(int[][] board) {
         int sum_board = 0;
 
-        for (int i = 0; i < numRows; i++) {
-            for (int j = 0; j < numCols; j++) {
+        for (int i = 0; i < num_rows; i++) {
+            for (int j = 0; j < num_cols; j++) {
                 sum_board += board[i][j];
             }
         }
 
         // Maximum number of 1's in an optimal solution is 22
         if (sum_board == 22) {
-            System.out.printf("%d-\n", solCounter++);
-            for (int i = 0; i < numRows; i++) {
-                for (int j = 0; j < numCols; j++)
+            System.out.printf("%d-\n", sol_counter++);
+            for (int i = 0; i < num_rows; i++) {
+                for (int j = 0; j < num_cols; j++)
                     System.out.printf(" %d ", board[i][j]);
                 System.out.print("\n");
             }

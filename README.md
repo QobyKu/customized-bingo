@@ -4,7 +4,7 @@ Winning at Bingo is all about filling consecutive cells as quickly as possible. 
 
 ## Motivation for this program
 
-It is always possible to generate 2 <sup>30</sup> states of the board (since there are 5x6 cells) by using a brute-force algorithm and emilinating those that fail the constraints. However, this takes expotential run-time to the input size. To achieve polynomial run-time, we can employ a backtracking algorithm similar to one that can solve the N-Queen Problem in a similar fashion.
+It is always possible to generate 2<sup>30</sup> states of the board (since there are 5x6 cells) by using a brute-force algorithm and emilinating those that fail the constraints. However, this takes expotential run-time to the input size. To achieve polynomial run-time, we can employ a backtracking algorithm similar to one that can solve the N-Queen Problem in a similar fashion.
 
 ## Boot up instructions
 

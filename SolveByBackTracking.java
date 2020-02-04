@@ -1,5 +1,6 @@
 public class SolveByBackTracking {
 
+    // Dimensions of Bingo board
     static int numRows = 5;
     static int numCols = 6;
     // Keeps track of number of solutions
@@ -10,19 +11,21 @@ public class SolveByBackTracking {
         solvePuzzle();
     }
 
-    /* This function solves the puzzle using
-    Backtracking. It mainly uses solvePuzzleUtil() to
-    solve the problem.*/
+    /*
+     * This function solves the puzzle using Backtracking. It mainly uses
+     * solvePuzzleUtil() to solve the problem.
+     */
     static void solvePuzzle() {
-        int[][] board = new int[5][6];
+        int[][] board = new int[numRows][numCols];
 
         if (!solvePuzzleUtil(board, 0, 0)) {
             System.out.print("Solution does not exist");
         }
     }
 
-    /* A recursive utility function
-    to solve the puzzle */
+    /*
+     * A recursive utility function to solve the puzzle
+     */
     static boolean solvePuzzleUtil(int[][] board, int row, int col) {
 
         /* base case: If we have reached end of the board */
@@ -31,33 +34,37 @@ public class SolveByBackTracking {
             return true;
         }
 
-    /* Consider this column and try placing
-    1's in all rows one by one */
+        /*
+         * Consider this column and try placing 1's in all rows one by one
+         */
         boolean res = false;
-        /* Check if 1 can be placed on
-        board[row][col] */
+        /*
+         * Check if 1 can be placed on board[row][col]
+         */
         while (row < numRows) {
             if (isSafe(board, row, col)) {
                 /* Place a 1 in board[i][col] */
                 board[row][col] = 1;
 
-                // Make result true if any placement
-                // is possible
-                if (row < 4) {
+                // Make result true if any placement is possible
+                // Try the next row if we haven't reached the bottom
+                if (row < numRows - 1) {
                     res = solvePuzzleUtil(board, row + 1, col) || res;
                 }
-                if (row == 4) {
+                // Try the next column if we have reached the bottom
+                if (row == numRows - 1) {
                     res = solvePuzzleUtil(board, 0, col + 1) || res;
                 }
 
-            /* If placing 1 in board[row][col]
-            doesn't lead to a solution, then
-            remove 1 from board[row][col] */
+                /*
+                 * If placing 1 in board[row][col] doesn't lead to a solution, then remove 1
+                 * from board[row][col]
+                 */
                 board[row][col] = 0; // BACKTRACK
             }
 
             // Move to the next column
-            if (row == 4) {
+            if (row == numRows - 1) {
                 res = solvePuzzleUtil(board, 0, col + 1) || res;
             }
 
@@ -65,13 +72,15 @@ public class SolveByBackTracking {
 
         }
 
-    /* If a 1 can not be place in any row in
-        this column then return false */
+        /*
+         * If a 1 can not be place in any row in this column then return false
+         */
         return res;
     }
 
-    /* A utility function to check if a 1 can
-    be placed on board[row][col]. */
+    /*
+     * A utility function to check if a 1 can be placed on board[row][col].
+     */
     static boolean isSafe(int[][] board, int row, int col) {
         if (col == 0) {
             if (row == 0) {
@@ -96,7 +105,7 @@ public class SolveByBackTracking {
                 if (sumVerticalDown(board, row, col) == 3) {
                     return false;
                 }
-                //check other vertical
+                // check other vertical
                 if (board[row - 1][col] + board[row + 1][col] + board[row + 2][col] == 3) {
                     return false;
                 }
@@ -123,8 +132,8 @@ public class SolveByBackTracking {
                 }
             } else if (row == 2) {
                 // check vertically
-                if (board[row - 2][col] + board[row - 1][col] + board[row + 1][col] == 3 ||
-                        board[row - 1][col] + board[row + 1][col] + board[row + 2][col] == 3) {
+                if (board[row - 2][col] + board[row - 1][col] + board[row + 1][col] == 3
+                        || board[row - 1][col] + board[row + 1][col] + board[row + 2][col] == 3) {
                     return false;
                 }
                 // check horizontally right
@@ -182,8 +191,8 @@ public class SolveByBackTracking {
                 }
             } else if (row == 2) {
                 // check diagonally
-                if (board[row - 1][col - 1] + board[row + 1][col + 1] + board[row + 2][col + 2] == 3 ||
-                        board[row + 1][col - 1] + board[row - 1][col + 1] + board[row - 2][col + 2] == 3) {
+                if (board[row - 1][col - 1] + board[row + 1][col + 1] + board[row + 2][col + 2] == 3
+                        || board[row + 1][col - 1] + board[row - 1][col + 1] + board[row - 2][col + 2] == 3) {
                     return false;
                 }
                 // check horizontally right
@@ -195,8 +204,8 @@ public class SolveByBackTracking {
                     return false;
                 }
                 // check vertically
-                if (board[row - 2][col] + board[row - 1][col] + board[row + 1][col] == 3 ||
-                        board[row - 1][col] + board[row + 1][col] + board[row + 2][col] == 3) {
+                if (board[row - 2][col] + board[row - 1][col] + board[row + 1][col] == 3
+                        || board[row - 1][col] + board[row + 1][col] + board[row + 2][col] == 3) {
                     return false;
                 }
             } else if (row == 1) {
@@ -265,8 +274,8 @@ public class SolveByBackTracking {
                     return false;
                 }
                 // check other horizontal
-                if (board[row][col - 2] + board[row][col - 1] + board[row][col + 1] == 3 ||
-                        board[row][col - 1] + board[row][col + 1] + board[row][col + 2] == 3) {
+                if (board[row][col - 2] + board[row][col - 1] + board[row][col + 1] == 3
+                        || board[row][col - 1] + board[row][col + 1] + board[row][col + 2] == 3) {
                     return false;
                 }
             } else if (row == 4) {
@@ -283,16 +292,16 @@ public class SolveByBackTracking {
                     return false;
                 }
                 // check other horizontal
-                if (board[row][col - 2] + board[row][col - 1] + board[row][col + 1] == 3 ||
-                        board[row][col - 1] + board[row][col + 1] + board[row][col + 2] == 3) {
+                if (board[row][col - 2] + board[row][col - 1] + board[row][col + 1] == 3
+                        || board[row][col - 1] + board[row][col + 1] + board[row][col + 2] == 3) {
                     return false;
                 }
             } else if (row == 2) {
                 // check diagonally
-                if (board[row - 2][col - 2] + board[row - 1][col - 1] + board[row + 1][col + 1] == 3 ||
-                        board[row - 1][col - 1] + board[row + 1][col + 1] + board[row + 2][col + 2] == 3 ||
-                        board[row + 1][col - 1] + board[row - 1][col + 1] + board[row - 2][col + 2] == 3 ||
-                        board[row + 2][col - 2] + board[row + 1][col - 1] + board[row - 1][col + 1] == 3) {
+                if (board[row - 2][col - 2] + board[row - 1][col - 1] + board[row + 1][col + 1] == 3
+                        || board[row - 1][col - 1] + board[row + 1][col + 1] + board[row + 2][col + 2] == 3
+                        || board[row + 1][col - 1] + board[row - 1][col + 1] + board[row - 2][col + 2] == 3
+                        || board[row + 2][col - 2] + board[row + 1][col - 1] + board[row - 1][col + 1] == 3) {
                     return false;
                 }
                 // check horizontally right
@@ -300,13 +309,13 @@ public class SolveByBackTracking {
                     return false;
                 }
                 // check other horizontal
-                if (board[row][col - 2] + board[row][col - 1] + board[row][col + 1] == 3 ||
-                        board[row][col - 1] + board[row][col + 1] + board[row][col + 2] == 3) {
+                if (board[row][col - 2] + board[row][col - 1] + board[row][col + 1] == 3
+                        || board[row][col - 1] + board[row][col + 1] + board[row][col + 2] == 3) {
                     return false;
                 }
                 // check vertically
-                if (board[row - 2][col] + board[row - 1][col] + board[row + 1][col] == 3 ||
-                        board[row - 1][col] + board[row + 1][col] + board[row + 2][col] == 3) {
+                if (board[row - 2][col] + board[row - 1][col] + board[row + 1][col] == 3
+                        || board[row - 1][col] + board[row + 1][col] + board[row + 2][col] == 3) {
                     return false;
                 }
             } else if (row == 3) {
@@ -335,8 +344,8 @@ public class SolveByBackTracking {
                     return false;
                 }
                 // check other horizontal
-                if (board[row][col - 2] + board[row][col - 1] + board[row][col + 1] == 3 ||
-                        board[row][col - 1] + board[row][col + 1] + board[row][col + 2] == 3) {
+                if (board[row][col - 2] + board[row][col - 1] + board[row][col + 1] == 3
+                        || board[row][col - 1] + board[row][col + 1] + board[row][col + 2] == 3) {
                     return false;
                 }
             } else if (row == 1) {
@@ -365,8 +374,8 @@ public class SolveByBackTracking {
                     return false;
                 }
                 // check other horizontal
-                if (board[row][col - 2] + board[row][col - 1] + board[row][col + 1] == 3 ||
-                        board[row][col - 1] + board[row][col + 1] + board[row][col + 2] == 3) {
+                if (board[row][col - 2] + board[row][col - 1] + board[row][col + 1] == 3
+                        || board[row][col - 1] + board[row][col + 1] + board[row][col + 2] == 3) {
                     return false;
                 }
             }
@@ -385,8 +394,8 @@ public class SolveByBackTracking {
                     return false;
                 }
                 // check other horizontal
-                if (board[row][col + 1] + board[row][col - 1] + board[row][col - 2] == 3 ||
-                        board[row][col + 1] + board[row][col + 2] + board[row][col - 1] == 3) {
+                if (board[row][col + 1] + board[row][col - 1] + board[row][col - 2] == 3
+                        || board[row][col + 1] + board[row][col + 2] + board[row][col - 1] == 3) {
                     return false;
                 }
             } else if (row == 4) {
@@ -403,16 +412,16 @@ public class SolveByBackTracking {
                     return false;
                 }
                 // check other horizontal
-                if (board[row][col + 1] + board[row][col - 1] + board[row][col - 2] == 3 ||
-                        board[row][col + 1] + board[row][col + 2] + board[row][col - 1] == 3) {
+                if (board[row][col + 1] + board[row][col - 1] + board[row][col - 2] == 3
+                        || board[row][col + 1] + board[row][col + 2] + board[row][col - 1] == 3) {
                     return false;
                 }
             } else if (row == 2) {
                 // check diagonally
-                if (board[row + 2][col - 2] + board[row + 1][col - 1] + board[row - 1][col + 1] == 3 ||
-                        board[row + 1][col - 1] + board[row - 1][col + 1] + board[row - 2][col + 2] == 3 ||
-                        board[row - 2][col - 2] + board[row - 1][col - 1] + board[row + 1][col + 1] == 3 ||
-                        board[row - 1][col - 1] + board[row + 1][col + 1] + board[row + 2][col + 2] == 3) {
+                if (board[row + 2][col - 2] + board[row + 1][col - 1] + board[row - 1][col + 1] == 3
+                        || board[row + 1][col - 1] + board[row - 1][col + 1] + board[row - 2][col + 2] == 3
+                        || board[row - 2][col - 2] + board[row - 1][col - 1] + board[row + 1][col + 1] == 3
+                        || board[row - 1][col - 1] + board[row + 1][col + 1] + board[row + 2][col + 2] == 3) {
                     return false;
                 }
                 // check horizontally left
@@ -420,13 +429,13 @@ public class SolveByBackTracking {
                     return false;
                 }
                 // check other horizontal
-                if (board[row][col + 1] + board[row][col - 1] + board[row][col - 2] == 3 ||
-                        board[row][col + 1] + board[row][col + 2] + board[row][col - 1] == 3) {
+                if (board[row][col + 1] + board[row][col - 1] + board[row][col - 2] == 3
+                        || board[row][col + 1] + board[row][col + 2] + board[row][col - 1] == 3) {
                     return false;
                 }
                 // check vertically
-                if (board[row - 2][col] + board[row - 1][col] + board[row + 1][col] == 3 ||
-                        board[row - 1][col] + board[row + 1][col] + board[row + 2][col] == 3) {
+                if (board[row - 2][col] + board[row - 1][col] + board[row + 1][col] == 3
+                        || board[row - 1][col] + board[row + 1][col] + board[row + 2][col] == 3) {
                     return false;
                 }
             } else if (row == 3) {
@@ -455,8 +464,8 @@ public class SolveByBackTracking {
                     return false;
                 }
                 // check other horizontal
-                if (board[row][col + 1] + board[row][col - 1] + board[row][col - 2] == 3 ||
-                        board[row][col + 1] + board[row][col + 2] + board[row][col - 1] == 3) {
+                if (board[row][col + 1] + board[row][col - 1] + board[row][col - 2] == 3
+                        || board[row][col + 1] + board[row][col + 2] + board[row][col - 1] == 3) {
                     return false;
                 }
             } else if (row == 1) {
@@ -485,8 +494,8 @@ public class SolveByBackTracking {
                     return false;
                 }
                 // check other horizontal
-                if (board[row][col + 1] + board[row][col - 1] + board[row][col - 2] == 3 ||
-                        board[row][col + 1] + board[row][col + 2] + board[row][col - 1] == 3) {
+                if (board[row][col + 1] + board[row][col - 1] + board[row][col - 2] == 3
+                        || board[row][col + 1] + board[row][col + 2] + board[row][col - 1] == 3) {
                     return false;
                 }
             }
@@ -527,8 +536,8 @@ public class SolveByBackTracking {
                 }
             } else if (row == 2) {
                 // check diagonally
-                if (board[row - 1][col + 1] + board[row + 1][col - 1] + board[row + 2][col - 2] == 3 ||
-                        board[row - 2][col - 2] + board[row - 1][col - 1] + board[row + 1][col + 1] == 3) {
+                if (board[row - 1][col + 1] + board[row + 1][col - 1] + board[row + 2][col - 2] == 3
+                        || board[row - 2][col - 2] + board[row - 1][col - 1] + board[row + 1][col + 1] == 3) {
                     return false;
                 }
                 // check horizontally left
@@ -540,8 +549,8 @@ public class SolveByBackTracking {
                     return false;
                 }
                 // check vertically
-                if (board[row - 2][col] + board[row - 1][col] + board[row + 1][col] == 3 ||
-                        board[row - 1][col] + board[row + 1][col] + board[row + 2][col] == 3) {
+                if (board[row - 2][col] + board[row - 1][col] + board[row + 1][col] == 3
+                        || board[row - 1][col] + board[row + 1][col] + board[row + 2][col] == 3) {
                     return false;
                 }
             } else if (row == 1) {
@@ -641,8 +650,8 @@ public class SolveByBackTracking {
                 }
             } else if (row == 2) {
                 // check vertically
-                if (board[row - 2][col] + board[row - 1][col] + board[row + 1][col] == 3 ||
-                        board[row - 1][col] + board[row + 1][col] + board[row + 2][col] == 3) {
+                if (board[row - 2][col] + board[row - 1][col] + board[row + 1][col] == 3
+                        || board[row - 1][col] + board[row + 1][col] + board[row + 2][col] == 3) {
                     return false;
                 }
                 // check horizontally left
@@ -755,8 +764,8 @@ public class SolveByBackTracking {
     static void printSolution(int[][] board) {
         int sum_board = 0;
 
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 6; j++) {
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < numCols; j++) {
                 sum_board += board[i][j];
             }
         }
@@ -764,8 +773,8 @@ public class SolveByBackTracking {
         // Maximum number of 1's in an optimal solution is 22
         if (sum_board == 22) {
             System.out.printf("%d-\n", solCounter++);
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 6; j++)
+            for (int i = 0; i < numRows; i++) {
+                for (int j = 0; j < numCols; j++)
                     System.out.printf(" %d ", board[i][j]);
                 System.out.print("\n");
             }

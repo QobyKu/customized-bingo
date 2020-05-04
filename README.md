@@ -1,6 +1,6 @@
 ## Description of the problem
 
-Winning at Bingo is all about filling consecutive cells as quickly as possible. But what if you wanted to stay in the game for as long as possible without winning? What is the maximum number of cells you can fill before you **have** to win? In this 5x6 version of the Bingo board, we want to find all the optimal configurations where no 4 consecutive cells in a row/column/diagonal can be filled while maximizing the number of filled cells. We will use 1's to represent filled cells and 0's to represent empty cells.
+Winning a game of Bingo is all about filling consecutive cells as quickly as possible. But what if the objective of the game was to stay in the game for as long as possible? What is the maximum number of cells you can fill before you **have** to win? In this 5x6 version of the Bingo board, we want to find all configurations where no 4 consecutive cells in a row/column/diagonal can be filled (otherwise we have a Bingo!) while maximizing the number of filled cells. We will use 1's to represent filled cells and 0's to represent empty cells.
 
 ## Motivation for this program
 
